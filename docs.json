@@ -84,8 +84,8 @@
     }
   },
   "logo": {
-    "light": "/logo/scoutlogofull.svg",
-    "dark": "/logo/scoutlogofull.svg"
+    "light": "/logo/light.svg",
+    "dark": "/logo/dark.svg"
   },
   "navbar": {
     "links": [
