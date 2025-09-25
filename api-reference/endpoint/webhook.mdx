@@ -1,4 +1,36 @@
 ---
-title: 'New Plant'
-openapi: 'WEBHOOK /plant/webhook'
+title: "Webhook payloads"
+description: "Receive notifications when Scout missions start or finish."
 ---
+
+<Note>
+  Webhooks will ship alongside the public API. Configure endpoints in the Scout dashboard when the beta opens.
+</Note>
+
+<ResponseField name="event" type="string" required>
+Possible values: `mission.started`, `mission.completed`, `mission.failed`, `finding.created`.
+</ResponseField>
+
+<ResponseField name="data" type="object" required>
+Payload containing mission or finding metadata.
+</ResponseField>
+
+<RequestExample>
+{
+  "event": "mission.completed",
+  "data": {
+    "mission_id": "mission_123",
+    "persona": "power_user",
+    "environment": "https://production.example.com",
+    "status": "completed",
+    "findings": [
+      "finding_1",
+      "finding_2"
+    ]
+  }
+}
+</RequestExample>
+
+<Tip>
+  Validate signatures before processing payloads. Scout signs each webhook with an HMAC secret you generate.
+</Tip>

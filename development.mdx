@@ -1,94 +1,49 @@
 ---
-title: 'Development'
-description: 'Preview changes locally to update your docs'
+title: "Workspace setup"
+description: "Configure Scout to explore the right environments with the right context."
 ---
 
 <Info>
   **Prerequisites**:
-  - Node.js version 19 or higher
-  - A docs repository with a `docs.json` file
+  - An active Scout workspace at [scoutqa.ai](https://scoutqa.ai)
+  - Access to the environments you want Scout to explore
+  - Optional: credentials or seed data for gated flows
 </Info>
 
-Follow these steps to install and run Mintlify on your operating system.
+Scout does the heavy lifting, but a few minutes of setup ensures every exploration delivers high-signal feedback. Use this page as your checklist before launching recurring runs.
+
+## Connect environments
 
 <Steps>
-<Step title="Install the Mintlify CLI">
-
-```bash
-npm i -g mint
-```
-</Step>
-
-<Step title="Preview locally">
-
-Navigate to your docs directory where your `docs.json` file is located, and run the following command:
-
-```bash
-mint dev
-```
-
-A local preview of your documentation will be available at `http://localhost:3000`.
-
-</Step>
+  <Step title="Add environments">
+    Create entries for production, staging, and ephemeral preview URLs. Label each environment so personas know what level of risk-taking is appropriate.
+  </Step>
+  <Step title="Store access details">
+    Provide login credentials, session cookies, or seed data. Scout handles them securely for the duration of the run and discards them immediately afterward.
+  </Step>
+  <Step title="Share build context">
+    Drop links to pull requests, design docs, or release notes. This context helps Scout focus on the parts of the product that just changed.
+  </Step>
 </Steps>
 
-## Custom ports
+## Tune exploration settings
 
-By default, Mintlify uses port 3000. You can customize the port Mintlify runs on by using the `--port` flag. For example, to run Mintlify on port 3333, use this command:
+- **Personas** – Map personas to environments. For instance, pair a curious newcomer with production and a boundary-pushing adversary with staging.
+- **Risk appetite** – Decide how aggressively Scout should poke around destructive actions, such as deleting data or triggering payments.
+- **Session duration** – Longer sessions explore deeper paths; shorter ones act as quick smoke tests after each deploy.
 
-```bash
-mint dev --port 3333
-```
+## Collect richer evidence
 
-If you attempt to run Mintlify on a port that's already in use, it will use the next available port:
+Use the options panel before launching an exploration to capture the level of evidence your team expects:
 
-```md
-Port 3000 is already in use. Trying 3001 instead.
-```
+- Enable screen capture for step-by-step visuals.
+- Request console logs or network traces when debugging flaky flows.
+- Ask Scout to propose follow-up steps you can convert into automated checks.
 
-## Mintlify versions
+## Keep your feedback loop tight
 
-Please note that each CLI release is associated with a specific version of Mintlify. If your local preview does not align with the production version, please update the CLI:
+Schedule recurring explorations for the flows that matter most. Daily or pre-release runs help vibe coding teams keep pace with production stability.
 
-```bash
-npm mint update
-```
-
-## Validating links
-
-The CLI can assist with validating links in your documentation. To identify any broken links, use the following command:
-
-```bash
-mint broken-links
-```
-
-## Deployment
-
-If the deployment is successful, you should see the following:
-
-<Frame>
-  <img src="/images/checks-passed.png" alt="Screenshot of a deployment confirmation message that says All checks have passed." style={{ borderRadius: '0.5rem' }} />
-</Frame>
-
-## Code formatting
-
-We suggest using extensions on your IDE to recognize and format MDX. If you're a VSCode user, consider the [MDX VSCode extension](https://marketplace.visualstudio.com/items?itemName=unifiedjs.vscode-mdx) for syntax highlighting, and [Prettier](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode) for code formatting.
-
-## Troubleshooting
-
-<AccordionGroup>
-  <Accordion title='Error: Could not load the "sharp" module using the darwin-arm64 runtime'>
-
-    This may be due to an outdated version of node. Try the following:
-    1. Remove the currently-installed version of the CLI: `npm remove -g mint`
-    2. Upgrade to Node v19 or higher.
-    3. Reinstall the CLI: `npm i -g mint`
-  </Accordion>
-
-  <Accordion title="Issue: Encountering an unknown error">
-  
-    Solution: Go to the root of your device and delete the `~/.mintlify` folder. Then run `mint dev` again.
-  </Accordion>
-</AccordionGroup>
-
-Curious about what changed in the latest CLI version? Check out the [CLI changelog](https://www.npmjs.com/package/mintlify?activeTab=versions).
+<Note>
+  Rolling out Scout to a larger organization? Start with one flagship flow, build trust in the findings, then expand coverage to additional personas and environments.
+</Note>

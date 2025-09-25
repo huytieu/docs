@@ -1,4 +1,36 @@
 ---
-title: 'Create Plant'
-openapi: 'POST /plants'
+title: "Launch a mission"
+description: "Programmatically trigger a Scout exploration."
 ---
+
+<Note>
+  API access is coming soon. Use this reference to prepare your automation.
+</Note>
+
+```http request
+POST /v1/missions
+```
+
+<RequestExample>
+{
+  "persona_id": "persona_first_time",
+  "environment_url": "https://staging.example.com",
+  "objective": "Verify onboarding flow",
+  "timebox_minutes": 7,
+  "metadata": {
+    "branch": "feature/new-signup",
+    "release": "2024.09.1"
+  }
+}
+</RequestExample>
+
+<ResponseExample>
+{
+  "id": "mission_123",
+  "status": "queued"
+}
+</ResponseExample>
+
+<Warning>
+  Launch requests require the `missions:write` scope. Unauthorized calls will return `403 Forbidden`.
+</Warning>

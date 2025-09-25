@@ -1,110 +1,54 @@
 ---
-title: "Reusable snippets"
-description: "Reusable, custom snippets to keep content in sync"
-icon: "recycle"
+title: "Quality playbook"
+description: "Operational habits that help vibe coding teams keep quality high with Scout."
+icon: "book-open"
 ---
 
-import SnippetIntro from '/snippets/snippet-intro.mdx';
+Scout provides the signal—your team's habits turn that signal into outcomes. Borrow these playbook patterns to keep quality visible without slowing shipping.
 
-<SnippetIntro />
+## Daily rituals
 
-## Creating a custom snippet
+- **Explorer standup** – Review overnight findings in five minutes. Decide which ones need fixes now versus after the current sprint.
+- **Pair with AI** – Feed Scout's findings back into your coding assistant so regenerated code reflects what broke.
+- **Run after merge** – Trigger a short exploration whenever a major branch lands in main.
 
-**Pre-condition**: You must create your snippet file in the `snippets` directory.
+## Weekly cadences
+
+<AccordionGroup>
+  <Accordion title="Quality sync" icon="people-group">
+    Walk through the week's highest-severity findings and follow up on previous action items.
+  </Accordion>
+  <Accordion title="Template audit" icon="folder-open">
+    Retire personas or scopes that no longer match your risk profile and create new ones for upcoming releases.
+  </Accordion>
+  <Accordion title="Scorecard review" icon="medal">
+    Celebrate avoided incidents, track resolution times, and surface processes that need refining.
+  </Accordion>
+</AccordionGroup>
+
+## Release checkpoints
+
+- **Launch rehearsal** – Run an adversarial exploration on staging 24 hours before launch.
+- **Post-release sweep** – Send a first-time visitor persona through production after the feature is live.
+- **Debrief** – Use Scout's timeline to reconstruct any incidents and feed lessons into your templates.
+
+## Sharing the story
+
+<CardGroup cols={2}>
+  <Card title="With leadership" icon="presentation-screen">
+    Highlight risk avoided and the pace of fixes to reinforce investment in quality.
+  </Card>
+  <Card title="With support" icon="headset">
+    Share findings that map to common tickets so support knows the fixes are on the way.
+  </Card>
+  <Card title="With design" icon="pen-ruler">
+    Loop in design partners when the vibe is off—they can iterate on copy or flows quickly with Scout's evidence.
+  </Card>
+  <Card title="With security" icon="lock">
+    Escalate adversarial findings directly to security to accelerate triage.
+  </Card>
+</CardGroup>
 
 <Note>
-  Any page in the `snippets` directory will be treated as a snippet and will not
-  be rendered into a standalone page. If you want to create a standalone page
-  from the snippet, import the snippet into another file and call it as a
-  component.
+  Have your own playbook that works well? We'd love to feature it. Send a note to [support@scoutqa.ai](mailto:support@scoutqa.ai).
 </Note>
-
-### Default export
-
-1. Add content to your snippet file that you want to re-use across multiple
-   locations. Optionally, you can add variables that can be filled in via props
-   when you import the snippet.
-
-```mdx snippets/my-snippet.mdx
-Hello world! This is my content I want to reuse across pages. My keyword of the
-day is {word}.
-```
-
-<Warning>
-  The content that you want to reuse must be inside the `snippets` directory in
-  order for the import to work.
-</Warning>
-
-2. Import the snippet into your destination file.
-
-```mdx destination-file.mdx
----
-title: My title
-description: My Description
----
-
-import MySnippet from '/snippets/path/to/my-snippet.mdx';
-
-## Header
-
-Lorem impsum dolor sit amet.
-
-<MySnippet word="bananas" />
-```
-
-### Reusable variables
-
-1. Export a variable from your snippet file:
-
-```mdx snippets/path/to/custom-variables.mdx
-export const myName = 'my name';
-
-export const myObject = { fruit: 'strawberries' };
-```
-
-2. Import the snippet from your destination file and use the variable:
-
-```mdx destination-file.mdx
----
-title: My title
-description: My Description
----
-
-import { myName, myObject } from '/snippets/path/to/custom-variables.mdx';
-
-Hello, my name is {myName} and I like {myObject.fruit}.
-```
-
-### Reusable components
-
-1. Inside your snippet file, create a component that takes in props by exporting
-   your component in the form of an arrow function.
-
-```mdx snippets/custom-component.mdx
-export const MyComponent = ({ title }) => (
-  <div>
-    <h1>{title}</h1>
-    <p>... snippet content ...</p>
-  </div>
-);
-```
-
-<Warning>
-  MDX does not compile inside the body of an arrow function. Stick to HTML
-  syntax when you can or use a default export if you need to use MDX.
-</Warning>
-
-2. Import the snippet into your destination file and pass in the props
-
-```mdx destination-file.mdx
----
-title: My title
-description: My Description
----
-
-import { MyComponent } from '/snippets/custom-component.mdx';
-
-Lorem ipsum dolor sit amet.
-
-<MyComponent title={'Custom title'} />
-```

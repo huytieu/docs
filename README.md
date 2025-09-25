@@ -1,43 +1,30 @@
-# Mintlify Starter Kit
+# Scout Docs
 
-Use the starter kit to get your docs deployed and ready to customize.
+This repository powers the Scout by Katalon documentation site. It started from the Mintlify starter kit and now tells the story of Scout—the quality companion built for vibe coding teams.
 
-Click the green **Use this template** button at the top of this repo to copy the Mintlify starter kit. The starter kit contains examples with
+## Getting started
 
-- Guide pages
-- Navigation
-- Customizations
-- API reference pages
-- Use of popular components
+The site is built with [Mintlify](https://mintlify.com). To work on the docs locally:
 
-**[Follow the full quickstart guide](https://starter.mintlify.com/quickstart)**
+1. Install the Mintlify CLI (requires Node.js 19+):
+   ```bash
+   npm i -g mint
+   ```
+2. From the repository root, run the development server:
+   ```bash
+   mint dev
+   ```
+3. Open [http://localhost:3000](http://localhost:3000) to preview changes in real time.
 
-## Development
+## Contributing content
 
-Install the [Mintlify CLI](https://www.npmjs.com/package/mint) to preview your documentation changes locally. To install, use the following command:
+- `index.mdx` introduces Scout and links to the rest of the guides.
+- `quickstart.mdx` walks through launching a first exploration.
+- `tooling/` outlines upcoming CLI and MCP interfaces.
+- `api-reference/` captures the planned public API.
 
-```
-npm i -g mint
-```
+When updating or adding content, keep the tone consistent with Scout’s positioning: supportive, fast-moving, and focused on actionable quality insights.
 
-Run the following command at the root of your documentation, where your `docs.json` is located:
+## Support
 
-```
-mint dev
-```
-
-View your local preview at `http://localhost:3000`.
-
-## Publishing changes
-
-Install our GitHub app from your [dashboard](https://dashboard.mintlify.com/settings/organization/github-app) to propagate changes from your repo to your deployment. Changes are deployed to production automatically after pushing to the default branch.
-
-## Need help?
-
-### Troubleshooting
-
-- If your dev environment isn't running: Run `mint update` to ensure you have the most recent version of the CLI.
-- If a page loads as a 404: Make sure you are running in a folder with a valid `docs.json`.
-
-### Resources
-- [Mintlify documentation](https://mintlify.com/docs)
+Questions about the product or docs workflow? Email [support@scoutqa.ai](mailto:support@scoutqa.ai).

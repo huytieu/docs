@@ -1,4 +1,23 @@
 ---
-title: 'Delete Plant'
-openapi: 'DELETE /plants/{id}'
+title: "Cancel a mission"
+description: "Stop an in-progress Scout exploration."
 ---
+
+<Note>
+  Cancellation is restricted to queued or running missions. Once a mission finishes, delete the findings instead.
+</Note>
+
+```http request
+DELETE /v1/missions/{mission_id}
+```
+
+<ResponseExample>
+{
+  "id": "mission_123",
+  "status": "canceled"
+}
+</ResponseExample>
+
+<Warning>
+  Canceling a mission may discard partial findings. We recommend re-running the mission after you resolve the underlying issue.
+</Warning>

@@ -1,33 +1,37 @@
 ---
-title: 'Introduction'
-description: 'Example section for showcasing API endpoints'
+title: "API overview"
+description: "Public APIs are on the roadmap so you can orchestrate Scout from anywhere."
 ---
 
 <Note>
-  If you're not looking to build API reference documentation, you can delete
-  this section by removing the api-reference folder.
+  Scout's public API is in development. This page outlines what's coming so you can plan integrations ahead of launch.
 </Note>
 
-## Welcome
+## Planned capabilities
 
-There are two ways to build API documentation: [OpenAPI](https://mintlify.com/docs/api-playground/openapi/setup) and [MDX components](https://mintlify.com/docs/api-playground/mdx/configuration). For the starter kit, we are using the following OpenAPI specification.
-
-<Card
-  title="Plant Store Endpoints"
-  icon="leaf"
-  href="https://github.com/mintlify/starter/blob/main/api-reference/openapi.json"
->
-  View the OpenAPI specification file
-</Card>
+<CardGroup cols={2}>
+  <Card title="Launch explorations" icon="paper-plane">
+    Kick off missions from your CI/CD pipeline or internal tooling.
+  </Card>
+  <Card title="Manage personas" icon="user-pen">
+    Create, update, and archive personas programmatically.
+  </Card>
+  <Card title="Retrieve findings" icon="folder-tree">
+    Pull full reports, evidence, and metadata into downstream systems.
+  </Card>
+  <Card title="Schedule runs" icon="calendar-days">
+    Automate recurring explorations across environments.
+  </Card>
+</CardGroup>
 
 ## Authentication
 
-All API endpoints are authenticated using Bearer tokens and picked up from the specification file.
+Scout's API will use OAuth2 with workspace-level scopes. You'll generate client credentials inside the app and authorize integrations by role.
 
-```json
-"security": [
-  {
-    "bearerAuth": []
-  }
-]
-```
+## Webhooks
+
+Expect webhooks for exploration lifecycle events (`started`, `completed`, `failed`) and high-severity findings. Configure delivery to Slack, Teams, or custom endpoints.
+
+## Beta access
+
+We are onboarding early partners. If you want to shape the API, email [support@scoutqa.ai](mailto:support@scoutqa.ai) with your use case.

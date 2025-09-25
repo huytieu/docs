@@ -1,35 +1,54 @@
 ---
-title: 'Code blocks'
-description: 'Display inline code and code blocks'
-icon: 'code'
+title: "From findings to fixes"
+description: "Use Scout's insight workflow to resolve issues fast without slowing down shipping."
+icon: "screwdriver-wrench"
 ---
 
-## Inline code
+Scout is most powerful when findings turn into real product improvements. This page walks through the tools built into each report to help you move from triage to resolution.
 
-To denote a `word` or `phrase` as code, enclose it in backticks (`).
+## Prioritize the right work
 
-```
-To denote a `word` or `phrase` as code, enclose it in backticks (`).
-```
+<ResponseField name="Severity" type="enum" required>
+`Critical`, `Major`, `Minor`, or `Note`. Severity is assigned automatically but you can adjust it as you learn more.
+</ResponseField>
 
-## Code blocks
+<ResponseField name="Confidence" type="percentage">
+Scout highlights how confident it is in the finding. Low confidence findings are perfect candidates for a quick re-run before you invest time.
+</ResponseField>
 
-Use [fenced code blocks](https://www.markdownguide.org/extended-syntax/#fenced-code-blocks) by enclosing code in three backticks and follow the leading ticks with the programming language of your snippet to get syntax highlighting. Optionally, you can also write the name of your code after the programming language.
+<ResponseField name="User impact" type="string">
+Short narrative describing who experiences the issue and how it affects them.
+</ResponseField>
 
-```java HelloWorld.java
-class HelloWorld {
-    public static void main(String[] args) {
-        System.out.println("Hello, World!");
-    }
-}
-```
+## Chop down time-to-fix
 
-````md
-```java HelloWorld.java
-class HelloWorld {
-    public static void main(String[] args) {
-        System.out.println("Hello, World!");
-    }
-}
-```
-````
+<Columns cols={2}>
+  <Card title="Link to work management" icon="link">
+    Create issues in Jira, Linear, or GitHub directly from the report so context stays intact.
+  </Card>
+  <Card title="Attach evidence" icon="paperclip">
+    Drag in logs, Loom videos, or design updates to capture decisions alongside the finding.
+  </Card>
+  <Card title="Ask for retest" icon="repeat">
+    Trigger a focused follow-up exploration after a fix is merged.
+  </Card>
+  <Card title="Create checklist" icon="list-check">
+    Capture manual steps for release sign-off while automated coverage is still being built.
+  </Card>
+</Columns>
+
+## Stay in sync with AI-generated code
+
+Vibe coding means code changes constantly. Use Scout as your feedback loop:
+
+1. Launch an exploration after each major AI-assisted change set.
+2. Review findings and tag them with the feature branch name.
+3. Share the report with your pairing AI so it has grounded feedback when iterating.
+
+## Measuring progress
+
+- Track resolution time by persona to spot gaps in ownership.
+- Export findings monthly to understand categories that need better automation.
+- Celebrate the number of critical issues caught before production—Scout keeps score so you can champion quality.
+
+Need workflows that plug into your internal tooling? Contact [support@scoutqa.ai](mailto:support@scoutqa.ai) to talk about custom webhooks and exports.

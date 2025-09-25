@@ -1,4 +1,33 @@
 ---
-title: 'Get Plants'
-openapi: 'GET /plants'
+title: "List missions"
+description: "Retrieve upcoming and historical Scout explorations."
 ---
+
+<Note>
+  This endpoint is part of the upcoming public API. The details below represent the planned shape and may change.
+</Note>
+
+```http request
+GET /v1/missions
+```
+
+<ResponseExample>
+{
+  "data": [
+    {
+      "id": "mission_123",
+      "persona": "first_time_visitor",
+      "environment": "https://preview.scoutqa.ai",
+      "status": "completed",
+      "started_at": "2024-09-18T17:12:00Z",
+      "completed_at": "2024-09-18T17:17:00Z",
+      "findings": 3
+    }
+  ],
+  "next_page": null
+}
+</ResponseExample>
+
+<Note>
+  Interested in shaping the response schema? Join the beta by emailing [support@scoutqa.ai](mailto:support@scoutqa.ai).
+</Note>

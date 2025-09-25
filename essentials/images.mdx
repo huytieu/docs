@@ -1,59 +1,48 @@
 ---
-title: 'Images and embeds'
-description: 'Add image, video, and other HTML elements'
-icon: 'image'
+title: "Automation roadmap"
+description: "Evolve from exploratory findings to dependable guardrails."
+icon: "shield"
 ---
 
-<img
-  style={{ borderRadius: '0.5rem' }}
-  src="https://mintlify-assets.b-cdn.net/bigbend.jpg"
-/>
+Scout starts with guided explorations and grows into an automation platform that runs quality checks for you.
 
-## Image
+## Today: Explorations on demand
 
-### Using Markdown
+- Launch manual runs during vibe coding sessions or before demos.
+- Schedule recurring explorations on the flows that define your user experience.
+- Share generated reports with design, growth, or support teammates to keep everyone aligned.
 
-The [markdown syntax](https://www.markdownguide.org/basic-syntax/#images) lets you add images using the following code
+## Tomorrow: Self-maintaining safeguards
 
-```md
-![title](/path/image.jpg)
-```
+<Columns cols={2}>
+  <Card title="Reusable flows" icon="route">
+    Promote a finding to create a reusable path. Scout remembers the exact sequence for future checks.
+  </Card>
+  <Card title="Guardrail library" icon="book">
+    Curate the most valuable flows (onboarding, checkout, admin) into a shared library.
+  </Card>
+  <Card title="Scheduled health checks" icon="calendar-check">
+    Run converted flows nightly or before launches. Failures bubble up with the same persona context you already know.
+  </Card>
+  <Card title="Insights to analytics" icon="chart-simple">
+    Trend quality over time—see where vibe coding introduces the most risk and justify investments in hardening.
+  </Card>
+</Columns>
 
-Note that the image file size must be less than 5MB. Otherwise, we recommend hosting on a service like [Cloudinary](https://cloudinary.com/) or [S3](https://aws.amazon.com/s3/). You can then use that URL and embed.
+## Working toward automation
 
-### Using embeds
+<Steps>
+  <Step title="Capture context">
+    Tag findings you want to automate with labels such as `Regression candidate` or `Critical path`.
+  </Step>
+  <Step title="Standardize data">
+    Add structured metadata (environment, user role, prerequisites). The richer the data, the easier it is to automate.
+  </Step>
+  <Step title="Pilot automations">
+    Ask the Scout team for access to early automation features once you have a handful of repeatable flows.
+  </Step>
+</Steps>
 
-To get more customizability with images, you can also use [embeds](/writing-content/embed) to add images
-
-```html
-<img height="200" src="/path/image.jpg" />
-```
-
-## Embeds and HTML elements
-
-<iframe
-  width="560"
-  height="315"
-  src="https://www.youtube.com/embed/4KzFe50RQkQ"
-  title="YouTube video player"
-  frameBorder="0"
-  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-  allowFullScreen
-  style={{ width: '100%', borderRadius: '0.5rem' }}
-></iframe>
-
-<br />
-
-<Tip>
-
-Mintlify supports [HTML tags in Markdown](https://www.markdownguide.org/basic-syntax/#html). This is helpful if you prefer HTML tags to Markdown syntax, and lets you create documentation with infinite flexibility.
-
-</Tip>
-
-### iFrames
-
-Loads another HTML page within the document. Most commonly used for embedding videos.
-
-```html
-<iframe src="https://www.youtube.com/embed/4KzFe50RQkQ"> </iframe>
-```
+<Note>
+  Automation features are rolling out gradually. Want to be part of the beta? Email [support@scoutqa.ai](mailto:support@scoutqa.ai).
+</Note>

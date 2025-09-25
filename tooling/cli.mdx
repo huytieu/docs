@@ -1,0 +1,39 @@
+---
+title: "Scout CLI"
+description: "A command-line interface for automating missions. Coming soon."
+icon: "terminal"
+---
+
+<Note>
+  The Scout CLI is under active development. This page outlines the planned experience so you can prepare your workflows.
+</Note>
+
+## Planned capabilities
+
+- Launch missions from local terminals or CI pipelines with `scout run`.
+- Upload persona briefs and mission templates stored in your repo.
+- Stream live mission progress and findings directly in your shell.
+- Export reports as JSON or Markdown for custom reporting.
+
+## Example workflow
+
+```bash
+# Authenticate once per machine
+scout login
+
+# Launch a mission against staging using the onboarding template
+scout run --template onboarding --env staging --timebox 7
+
+# Stream findings and open the report when complete
+scout report mission_123 --open
+```
+
+## Integrations
+
+- **CI/CD** – Use the CLI inside GitHub Actions, CircleCI, or any runner to gate deployments.
+- **Local dev** – Pair the CLI with hot module reloading so vibe coding sessions always end with a quality check.
+- **Task runners** – Wrap common commands in npm/yarn scripts or Makefiles (e.g., `make scout-smoke`).
+
+## Timeline
+
+We are targeting an early access release later this year. Want in? Email [support@scoutqa.ai](mailto:support@scoutqa.ai) with details about your workflow.

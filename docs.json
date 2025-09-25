@@ -14,7 +14,7 @@
         "tab": "Guides",
         "groups": [
           {
-            "group": "Getting started",
+            "group": "Meet Scout",
             "pages": [
               "index",
               "quickstart",
@@ -22,23 +22,36 @@
             ]
           },
           {
-            "group": "Customization",
+            "group": "Scout in Action",
             "pages": [
               "essentials/settings",
-              "essentials/navigation"
+              "essentials/navigation",
+              "essentials/markdown",
+              "essentials/code"
             ]
           },
           {
-            "group": "Writing content",
+            "group": "Quality Roadmap",
             "pages": [
-              "essentials/markdown",
-              "essentials/code",
               "essentials/images",
               "essentials/reusable-snippets"
             ]
           },
           {
-            "group": "AI tools",
+            "group": "Tooling",
+            "pages": [
+              "tooling/cli",
+              "tooling/mcp"
+            ]
+          },
+          {
+            "group": "Stories",
+            "pages": [
+              "stories/why-we-built-scout"
+            ]
+          },
+          {
+            "group": "Integrations",
             "pages": [
               "ai-tools/cursor",
               "ai-tools/claude-code",
@@ -48,21 +61,12 @@
         ]
       },
       {
-        "tab": "API reference",
+        "tab": "API",
         "groups": [
           {
-            "group": "API documentation",
+            "group": "Overview",
             "pages": [
               "api-reference/introduction"
-            ]
-          },
-          {
-            "group": "Endpoint examples",
-            "pages": [
-              "api-reference/endpoint/get",
-              "api-reference/endpoint/create",
-              "api-reference/endpoint/delete",
-              "api-reference/endpoint/webhook"
             ]
           }
         ]
@@ -71,13 +75,13 @@
     "global": {
       "anchors": [
         {
-          "anchor": "Documentation",
-          "href": "https://mintlify.com/docs",
-          "icon": "book-open-cover"
+          "anchor": "Product",
+          "href": "https://scoutqa.ai",
+          "icon": "rocket"
         },
         {
-          "anchor": "Blog",
-          "href": "https://mintlify.com/blog",
+          "anchor": "Changelog",
+          "href": "https://scoutqa.ai/blog",
           "icon": "newspaper"
         }
       ]
@@ -91,32 +95,32 @@
     "links": [
       {
         "label": "Support",
-        "href": "mailto:hi@mintlify.com"
+        "href": "mailto:support@scoutqa.ai"
       }
     ],
     "primary": {
       "type": "button",
-      "label": "Dashboard",
-      "href": "https://dashboard.mintlify.com"
+      "label": "Launch Scout",
+      "href": "https://scoutqa.ai"
     }
   },
   "contextual": {
     "options": [
-     "copy",
-     "view",
-     "chatgpt",
-     "claude",
-     "perplexity",
-     "mcp",
-     "cursor",
-     "vscode"
-   ]
+      "copy",
+      "view",
+      "chatgpt",
+      "claude",
+      "perplexity",
+      "mcp",
+      "cursor",
+      "vscode"
+    ]
   },
   "footer": {
     "socials": {
-      "x": "https://x.com/mintlify",
-      "github": "https://github.com/mintlify",
-      "linkedin": "https://linkedin.com/company/mintlify"
+      "x": "https://x.com/katalon",
+      "github": "https://github.com/katalon-studio",
+      "linkedin": "https://linkedin.com/company/katalon"
     }
   }
 }

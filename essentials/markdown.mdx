@@ -1,88 +1,52 @@
 ---
-title: 'Markdown syntax'
-description: 'Text, title, and styling in standard markdown'
-icon: 'text-size'
+title: "Field reports"
+description: "Understand how Scout structures findings so you can act quickly."
+icon: "clipboard"
 ---
 
-## Titles
+Every exploration ends with a field report that captures what Scout saw, what broke, and what to do next. The report format is designed to keep vibe coding teams moving without sacrificing quality.
 
-Best used for section headers.
+## Anatomy of a finding
 
-```md
-## Titles
-```
+<Columns cols={2}>
+  <Card title="Signal summary" icon="circle-info">
+    High-level description of the issue, tagged with severity and persona. Use this to triage at a glance.
+  </Card>
+  <Card title="Reproduction trail" icon="shoe-prints">
+    Ordered steps with timestamps, console logs, and screenshots so anyone can replay the journey.
+  </Card>
+  <Card title="Impact analysis" icon="triangle-exclamation">
+    Scout explains who is affected, what the user experience feels like, and why it matters.
+  </Card>
+  <Card title="Suggested fix" icon="lightbulb">
+    Recommendations for remediation or follow-up explorations to confirm the fix.
+  </Card>
+</Columns>
 
-### Subtitles
+## Working the queue
 
-Best used for subsection headers.
+<Steps>
+  <Step title="Triaging">
+    Filter findings by severity or persona. Assign owners directly within the report to keep accountability clear.
+  </Step>
+  <Step title="Digging deeper">
+    Expand any step to inspect screenshots, console logs, or captured network calls. Export artifacts when you need to share with external teams.
+  </Step>
+  <Step title="Closing the loop">
+    Mark issues as resolved and optionally schedule a regression exploration to confirm the fix stays fixed.
+  </Step>
+</Steps>
 
-```md
-### Subtitles
-```
+## Collaborating with your team
 
-<Tip>
+- **Comments** – Start discussions inline on any step to capture hypotheses and status updates.
+- **Mentions** – Notify teammates via Slack or email by mentioning them in the thread.
+- **Labels** – Group findings by epic, release, or risk category for easier reporting.
 
-Each **title** and **subtitle** creates an anchor and also shows up on the table of contents on the right.
+## From insight to automation
 
-</Tip>
+Each field report stores structured metadata (persona, environment, reproduction steps). Use the "Promote to automation" action to queue the finding for a future scripted regression.
 
-## Text formatting
-
-We support most markdown formatting. Simply add `**`, `_`, or `~` around text to format it.
-
-| Style         | How to write it   | Result          |
-| ------------- | ----------------- | --------------- |
-| Bold          | `**bold**`        | **bold**        |
-| Italic        | `_italic_`        | _italic_        |
-| Strikethrough | `~strikethrough~` | ~strikethrough~ |
-
-You can combine these. For example, write `**_bold and italic_**` to get **_bold and italic_** text.
-
-You need to use HTML to write superscript and subscript text. That is, add `<sup>` or `<sub>` around your text.
-
-| Text Size   | How to write it          | Result                 |
-| ----------- | ------------------------ | ---------------------- |
-| Superscript | `<sup>superscript</sup>` | <sup>superscript</sup> |
-| Subscript   | `<sub>subscript</sub>`   | <sub>subscript</sub>   |
-
-## Linking to pages
-
-You can add a link by wrapping text in `[]()`. You would write `[link to google](https://google.com)` to [link to google](https://google.com).
-
-Links to pages in your docs need to be root-relative. Basically, you should include the entire folder path. For example, `[link to text](/writing-content/text)` links to the page "Text" in our components section.
-
-Relative links like `[link to text](../text)` will open slower because we cannot optimize them as easily.
-
-## Blockquotes
-
-### Singleline
-
-To create a blockquote, add a `>` in front of a paragraph.
-
-> Dorothy followed her through many of the beautiful rooms in her castle.
-
-```md
-> Dorothy followed her through many of the beautiful rooms in her castle.
-```
-
-### Multiline
-
-> Dorothy followed her through many of the beautiful rooms in her castle.
->
-> The Witch bade her clean the pots and kettles and sweep the floor and keep the fire fed with wood.
-
-```md
-> Dorothy followed her through many of the beautiful rooms in her castle.
->
-> The Witch bade her clean the pots and kettles and sweep the floor and keep the fire fed with wood.
-```
-
-### LaTeX
-
-Mintlify supports [LaTeX](https://www.latex-project.org) through the Latex component.
-
-<Latex>8 x (vk x H1 - H2) = (0,1)</Latex>
-
-```md
-<Latex>8 x (vk x H1 - H2) = (0,1)</Latex>
-```
+<Note>
+  Automations are rolling out gradually. If you want early access, reach out at [support@scoutqa.ai](mailto:support@scoutqa.ai).
+</Note>

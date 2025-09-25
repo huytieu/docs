@@ -1,0 +1,37 @@
+---
+title: "Scout MCP"
+description: "Connect Scout to model orchestrators via the Model Context Protocol. Coming soon."
+icon: "sparkles"
+---
+
+<Note>
+  MCP support is planned after the CLI launch. We want to make it easy for your AI agents to collaborate with Scout.
+</Note>
+
+## Use cases we want to enable
+
+- Give your AI agent the power to launch and monitor Scout missions autonomously.
+- Feed mission findings back into agent context so remediation tasks stay grounded in real bugs.
+- Allow agents to schedule recurring quality checks when they detect risky code changes.
+
+## Proposed resources
+
+<ResponseField name="missions.launch" type="procedure" required>
+Agents request a new mission by providing persona, environment, and objectives.
+</ResponseField>
+
+<ResponseField name="missions.status" type="query">
+Poll or subscribe for mission lifecycle events.
+</ResponseField>
+
+<ResponseField name="findings.list" type="query">
+Retrieve structured findings to feed into downstream workflows or chains of thought.
+</ResponseField>
+
+## How to contribute feedback
+
+- Share the agents or workflows you plan to connect.
+- Tell us which resources should be read-only or write-enabled.
+- Vote on the order you'd like to see features ship (launching missions vs. reading findings, etc.).
+
+Write to [support@scoutqa.ai](mailto:support@scoutqa.ai) with "MCP" in the subject line and we'll reach out when the private beta opens.

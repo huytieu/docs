@@ -1,87 +1,70 @@
 ---
-title: 'Navigation'
-description: 'The navigation field in docs.json defines the pages that go in the navigation menu'
-icon: 'map'
+title: "Personas & scopes"
+description: "Direct Scout's explorations by choosing the right persona and mission scope."
+icon: "users"
 ---
 
-The navigation menu is the list of links on every website.
+The Scout you send determines the quality of the intel you receive. Personas and scopes work together to emulate real situations and uncover issues traditional automation rarely touches.
 
-You will likely update `docs.json` every time you add a new page. Pages do not show up automatically.
-
-## Navigation syntax
-
-Our navigation syntax is recursive which means you can make nested navigation groups. You don't need to include `.mdx` in page names.
+## Personas
 
 <CodeGroup>
-
-```json Regular Navigation
-"navigation": {
-  "tabs": [
-    {
-      "tab": "Docs",
-      "groups": [
-        {
-          "group": "Getting Started",
-          "pages": ["quickstart"]
-        }
-      ]
-    }
-  ]
-}
+```text First-time visitor
+Ideal for onboarding flows. Scout prioritizes discoverability, broken entry points, and confusing copy.
 ```
-
-```json Nested Navigation
-"navigation": {
-  "tabs": [
-    {
-      "tab": "Docs",
-      "groups": [
-        {
-          "group": "Getting Started",
-          "pages": [
-            "quickstart",
-            {
-              "group": "Nested Reference Pages",
-              "pages": ["nested-reference-page"]
-            }
-          ]
-        }
-      ]
-    }
-  ]
-}
+```text Power user
+Moves fast, chains shortcuts, and stress-tests high-value flows like checkout or data exports.
 ```
-
+```text Adversarial actor
+Looks for misconfigurations, exposed admin access, and actions that could corrupt data.
+```
 </CodeGroup>
 
-## Folders
+Tune each persona with:
 
-Simply put your MDX files in folders and update the paths in `docs.json`.
+- **Voice & tone** – Describe how the persona thinks (“cautious newcomer”, “impatient hacker”).
+- **Goals** – Outline must-complete tasks or success criteria.
+- **Forbidden paths** – Anything the persona should avoid, like deleting production data.
 
-For example, to have a page at `https://yoursite.com/your-folder/your-page` you would make a folder called `your-folder` containing an MDX file called `your-page.mdx`.
+## Scopes
 
-<Warning>
+Scopes define the playground for an exploration.
 
-You cannot use `api` for the name of a folder unless you nest it inside another folder. Mintlify uses Next.js which reserves the top-level `api` folder for internal server calls. A folder name such as `api-reference` would be accepted.
+<ResponseField name="Environment" type="url" required>
+Provide the URL or deep link where the persona should begin.
+</ResponseField>
 
-</Warning>
+<ResponseField name="Entry point" type="string">
+Tell Scout whether to start authenticated, as a guest, or by completing a setup action first.
+</ResponseField>
 
-```json Navigation With Folder
-"navigation": {
-  "tabs": [
-    {
-      "tab": "Docs",
-      "groups": [
-        {
-          "group": "Group Name",
-          "pages": ["your-folder/your-page"]
-        }
-      ]
-    }
-  ]
-}
-```
+<ResponseField name="Timebox" type="duration">
+How long the persona should explore before handing back the report.
+</ResponseField>
 
-## Hidden pages
+## Mission templates
 
-MDX files not included in `docs.json` will not show up in the sidebar but are accessible through the search bar and by linking directly to them.
+Reuse combinations of personas and scopes to maintain consistency:
+
+<Columns cols={2}>
+  <Card title="Launch smoke" icon="rocket">
+    5-minute runs in production to validate sign-up, settings, and sign-out flows on every deploy.
+  </Card>
+  <Card title="Checkout deep dive" icon="cart-shopping">
+    Adversarial persona on staging pushing discount logic, refunds, and failed payments.
+  </Card>
+  <Card title="Growth experiment" icon="chart-line">
+    Power user persona verifying AI-generated features before you roll them to beta users.
+  </Card>
+  <Card title="Security sweep" icon="shield-halved">
+    Adversarial persona exploring admin surfaces and permission boundaries after major refactors.
+  </Card>
+</Columns>
+
+## Tips for crisp intel
+
+- Share screenshots or Looms when launching a new scope so Scout learns intent faster.
+- Keep mission templates short—multiple focused runs beat one overloaded brief.
+- Revisit persona notes monthly as your product, user base, and risk tolerance evolve.
+
+Need a custom persona for your team? Email [support@scoutqa.ai](mailto:support@scoutqa.ai) and we’ll help you craft it.
