@@ -3,7 +3,7 @@
   "theme": "mint",
   "name": "Scout by Katalon",
   "colors": {
-    "primary": "#F97316",
+    "primary": "#19D89F",
     "light": "#07C983",
     "dark": "#15803D"
   },
@@ -95,7 +95,7 @@
     "links": [
       {
         "label": "Support",
-        "href": "mailto:support@scoutqa.ai"
+        "href": "mailto:huy.tieu@scoutqa.ai"
       }
     ],
     "primary": {
