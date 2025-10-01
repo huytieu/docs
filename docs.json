@@ -4,10 +4,9 @@
   "name": "Scout by Katalon",
   "colors": {
     "primary": "#19D89F",
-    "light": "#07C983",
-    "dark": "#15803D"
+    "light": "#47E0B2",
+    "dark": "#0F8461"
   },
-  "favicon": "/favicon.svg",
   "navigation": {
     "tabs": [
       {
