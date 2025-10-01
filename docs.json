@@ -1,7 +1,10 @@
 {
   "$schema": "https://mintlify.com/docs.json",
   "theme": "mint",
-  "name": "Scout by Katalon",
+  "name": "Scout - Your AI Quality Companion",
+  "appearance": {
+    "default": "dark"
+  },
   "colors": {
     "primary": "#19D89F",
     "light": "#47E0B2",
