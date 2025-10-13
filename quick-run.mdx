@@ -1,0 +1,192 @@
+---
+title: "Quick Run"
+description: "Get started with Scout in minutes using our simple URL pattern"
+icon: "bolt"
+---
+
+## Overview
+
+Scout makes it incredibly easy to start exploring your web applications. No complex setup, no configuration files—just a simple URL pattern and you're ready to go.
+
+## Scout URL Format
+
+Scout uses a simple URL pattern to explore your applications:
+
+<CardGroup cols={2}>
+  <Card title="Lovable Apps" icon="heart">
+    **Original URL**: `yourapp.lovable.app`
+
+    **Scout URL**: `yourapp.lovable.scoutqa.app`
+  </Card>
+
+  <Card title="Replit Apps" icon="code">
+    **Original URL**: `yourapp.replit.app`
+
+    **Scout URL**: `yourapp.replit.scoutqa.app`
+  </Card>
+</CardGroup>
+
+Simply replace your app's domain with the Scout-enabled version to enable automated exploration.
+
+## How It Works
+
+<Steps>
+  <Step title="Identify your app URL">
+    Find your application's current URL (e.g., `myproject.lovable.app` or `myrepl.replit.app`)
+  </Step>
+
+  <Step title="Transform to Scout URL">
+    Replace the domain with the Scout-enabled version:
+    - Lovable: Add `.scoutqa` before `.app`
+    - Replit: Add `.scoutqa` before `.app`
+  </Step>
+
+  <Step title="Access with Scout">
+    Visit the Scout URL in your browser or use it in your CI/CD pipeline to start automated exploration
+  </Step>
+
+  <Step title="Review findings">
+    Scout will explore your application and provide detailed reports with issues, screenshots, and reproduction steps
+  </Step>
+</Steps>
+
+## Quick Examples
+
+### Lovable App
+
+```bash
+# Original app URL
+https://todo-app.lovable.app
+
+# Scout-enabled URL
+https://todo-app.lovable.scoutqa.app
+```
+
+### Replit App
+
+```bash
+# Original app URL
+https://portfolio-site.replit.app
+
+# Scout-enabled URL
+https://portfolio-site.replit.scoutqa.app
+```
+
+## Use Cases
+
+<AccordionGroup>
+  <Accordion title="Manual exploration">
+    Simply visit your Scout URL in a browser to trigger an immediate exploration. Perfect for quick checks during development.
+  </Accordion>
+
+  <Accordion title="Share with team">
+    Share the Scout URL with your team members so they can trigger explorations without any setup.
+  </Accordion>
+
+  <Accordion title="Bookmark for convenience">
+    Bookmark your Scout URL for one-click access to quality checks whenever you need them.
+  </Accordion>
+
+  <Accordion title="Integrate with CI/CD">
+    Use the Scout URL in your GitHub Actions, GitLab CI, or other automation tools for continuous quality monitoring.
+  </Accordion>
+</AccordionGroup>
+
+## Supported Platforms
+
+<CardGroup cols={2}>
+  <Card title="Lovable" icon="heart" href="https://lovable.dev">
+    Full support for all Lovable-hosted applications with automatic exploration capabilities.
+  </Card>
+
+  <Card title="Replit" icon="code" href="https://replit.com">
+    Complete integration with Replit-deployed applications for seamless quality checks.
+  </Card>
+</CardGroup>
+
+## What Scout Explores
+
+When you access your Scout URL, Scout will:
+
+- **Navigate your application** like a real user would
+- **Test user flows** including authentication, forms, and navigation
+- **Identify usability issues** that affect user experience
+- **Find functional bugs** that could impact your app's reliability
+- **Check for security concerns** based on common vulnerabilities
+- **Generate detailed reports** with screenshots and reproduction steps
+
+## Personas
+
+Scout can explore your app from different user perspectives:
+
+<Tabs>
+  <Tab title="General User">
+    Explores as a typical user, focusing on common workflows and usability.
+  </Tab>
+
+  <Tab title="Security Tester">
+    Looks for security vulnerabilities, authentication issues, and data exposure risks.
+  </Tab>
+
+  <Tab title="Accessibility Auditor">
+    Checks for accessibility issues affecting users with disabilities.
+  </Tab>
+
+  <Tab title="Power User">
+    Tests advanced features, edge cases, and complex workflows.
+  </Tab>
+</Tabs>
+
+## Next Steps
+
+<CardGroup cols={2}>
+  <Card title="Automate with GitHub Actions" icon="github" href="/quick-run/github-actions">
+    Set up automated Scout runs in your CI/CD pipeline
+  </Card>
+
+  <Card title="View Example Reports" icon="file-lines" href="/essentials/markdown">
+    See what Scout findings look like
+  </Card>
+
+  <Card title="Learn About Personas" icon="users" href="/essentials/navigation">
+    Understand different exploration perspectives
+  </Card>
+
+  <Card title="Coming Soon: PR Review" icon="code-pull-request" href="/tooling/pr-review">
+    Automated PR reviews with Scout (launching soon)
+  </Card>
+</CardGroup>
+
+## FAQ
+
+<AccordionGroup>
+  <Accordion title="Do I need an API key for Quick Run?">
+    No! The Quick Run URL pattern works immediately without any API keys or configuration. Just transform your URL and go.
+  </Accordion>
+
+  <Accordion title="How long does an exploration take?">
+    Most explorations complete within 5-10 minutes, depending on your application's complexity and the persona selected.
+  </Accordion>
+
+  <Accordion title="Can I customize the exploration?">
+    For advanced customization (personas, timeouts, specific flows), use our [GitHub Actions integration](/quick-run/github-actions) or wait for the [Scout CLI](/tooling/cli).
+  </Accordion>
+
+  <Accordion title="Is my app data secure?">
+    Scout only interacts with publicly accessible pages by default. We don't store sensitive data and all explorations are ephemeral.
+  </Accordion>
+
+  <Accordion title="What if my app requires authentication?">
+    For authenticated apps, you'll need to use our [GitHub Actions integration](/quick-run/github-actions) with auth tokens, or wait for the [Scout CLI](/tooling/cli).
+  </Accordion>
+</AccordionGroup>
+
+## Get Help
+
+Have questions or need assistance?
+
+- Check out our [Quickstart guide](/quickstart)
+- Review the [GitHub Actions setup](/quick-run/github-actions)
+- [Contact support](mailto:huy.tieu@scoutqa.ai)
+
+Ready to explore? Transform your URL and give Scout a try!

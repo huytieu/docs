@@ -1,0 +1,452 @@
+---
+title: "PR Review with GitHub Actions"
+description: "Automatically review pull requests with Scout quality checks"
+icon: "code-pull-request"
+---
+
+<Warning>
+  **Coming Soon** - Automated PR review with GitHub Actions is under active development. This page outlines the planned experience so you can prepare your workflows.
+</Warning>
+
+## Overview
+
+Scout will be able to automatically explore your application when pull requests are created or updated, providing quality feedback before code is merged. This helps catch usability issues, functional bugs, and security concerns early in the development cycle.
+
+## Scout URL Format
+
+Scout uses a simple URL pattern to explore your applications:
+
+- **Lovable apps**: `yourapp.lovable.app` → `yourapp.lovable.scoutqa.app`
+- **Replit apps**: `yourapp.replit.app` → `yourapp.replit.scoutqa.app`
+
+Simply replace your app's domain with the Scout-enabled version to enable automated exploration.
+
+## Why PR Review with Scout?
+
+<CardGroup cols={2}>
+  <Card title="Catch issues early" icon="bug">
+    Identify quality problems before they reach your main branch or production.
+  </Card>
+
+  <Card title="Shift quality left" icon="arrow-left">
+    Get immediate feedback during development, not days later from QA or users.
+  </Card>
+
+  <Card title="Maintain velocity" icon="gauge-high">
+    Keep shipping fast without sacrificing quality or accumulating technical debt.
+  </Card>
+
+  <Card title="Reduce review burden" icon="users">
+    Automated exploration frees up human reviewers to focus on code architecture and logic.
+  </Card>
+</CardGroup>
+
+## Setup
+
+### 1. Create GitHub Action Workflow
+
+Create `.github/workflows/scout-pr-review.yml`:
+
+```yaml
+name: Scout PR Review
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+    branches:
+      - main
+      - develop
+
+jobs:
+  scout-review:
+    runs-on: ubuntu-latest
+    permissions:
+      pull-requests: write
+      contents: read
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Wait for preview deployment
+        id: preview
+        run: |
+          # Replace with your preview deployment logic
+          echo "url=https://pr-${{ github.event.pull_request.number }}.preview.myapp.com" >> $GITHUB_OUTPUT
+
+      - name: Run Scout Exploration
+        id: scout
+        uses: katalon-studio/scout-action@v1
+        with:
+          api_key: ${{ secrets.SCOUT_API_KEY }}
+          url: ${{ steps.preview.outputs.url }}
+          persona: 'general-user'
+          timeout: 10
+
+      - name: Post Scout Report to PR
+        uses: actions/github-script@v7
+        if: always()
+        with:
+          script: |
+            const fs = require('fs');
+            const report = JSON.parse(fs.readFileSync('scout-report.json', 'utf8'));
+
+            const statusEmoji = report.critical_count > 0 ? '🚨' :
+                               report.high_count > 0 ? '⚠️' : '✅';
+
+            const body = `## ${statusEmoji} Scout Quality Report
+
+            **Exploration Status:** ${report.status}
+            **Persona:** ${report.persona}
+            **Duration:** ${Math.round((new Date(report.completed_at) - new Date(report.started_at)) / 1000 / 60)} minutes
+
+            ### Issues Found
+            - 🚨 Critical: ${report.critical_count}
+            - ⚠️ High: ${report.high_count}
+            - 📝 Medium: ${report.medium_count}
+            - 💡 Low: ${report.low_count}
+
+            ${report.issues.slice(0, 3).map(issue => `
+            #### ${issue.severity === 'critical' ? '🚨' : '⚠️'} ${issue.title}
+            ${issue.description}
+
+            <details>
+            <summary>Reproduction Steps</summary>
+
+            ${issue.reproduction_steps.map((step, i) => `${i + 1}. ${step}`).join('\n')}
+            </details>
+            `).join('\n')}
+
+            ${report.issues.length > 3 ? `\n_...and ${report.issues.length - 3} more issues_\n` : ''}
+
+            [📊 View Full Report](${report.report_url})
+            `;
+
+            // Find existing Scout comment
+            const { data: comments } = await github.rest.issues.listComments({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.issue.number
+            });
+
+            const scoutComment = comments.find(c =>
+              c.user.type === 'Bot' && c.body.includes('Scout Quality Report')
+            );
+
+            if (scoutComment) {
+              // Update existing comment
+              await github.rest.issues.updateComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                comment_id: scoutComment.id,
+                body: body
+              });
+            } else {
+              // Create new comment
+              await github.rest.issues.createComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: context.issue.number,
+                body: body
+              });
+            }
+
+      - name: Fail on critical issues
+        if: steps.scout.outputs.critical_count > 0
+        run: |
+          echo "Scout found ${{ steps.scout.outputs.critical_count }} critical issues"
+          exit 1
+```
+
+### 2. Configure Secrets
+
+Add the following secrets to your GitHub repository:
+
+<Steps>
+  <Step title="Navigate to repository settings">
+    Go to your repository → Settings → Secrets and variables → Actions
+  </Step>
+
+  <Step title="Add SCOUT_API_KEY">
+    Create a new secret named `SCOUT_API_KEY` with your Scout API key from [scoutqa.ai](https://scoutqa.ai)
+  </Step>
+
+  <Step title="Add environment URLs (optional)">
+    If using fixed staging URLs, add secrets like `STAGING_URL` or configure preview deployment URLs in your workflow
+  </Step>
+</Steps>
+
+## Integration Patterns
+
+### With Lovable Apps
+
+```yaml
+- name: Run Scout on Lovable App
+  uses: katalon-studio/scout-action@v1
+  with:
+    api_key: ${{ secrets.SCOUT_API_KEY }}
+    url: 'yourapp.lovable.scoutqa.app'
+    persona: 'general-user'
+    timeout: 10
+```
+
+### With Replit Apps
+
+```yaml
+- name: Run Scout on Replit App
+  uses: katalon-studio/scout-action@v1
+  with:
+    api_key: ${{ secrets.SCOUT_API_KEY }}
+    url: 'yourapp.replit.scoutqa.app'
+    persona: 'security-tester'
+    timeout: 10
+```
+
+### With Vercel Preview Deployments
+
+```yaml
+- name: Wait for Vercel Preview
+  uses: patrickedqvist/wait-for-vercel-preview@v1.3.1
+  id: vercel
+  with:
+    token: ${{ secrets.GITHUB_TOKEN }}
+    max_timeout: 300
+
+- name: Run Scout on Vercel Preview
+  uses: katalon-studio/scout-action@v1
+  with:
+    api_key: ${{ secrets.SCOUT_API_KEY }}
+    url: ${{ steps.vercel.outputs.url }}
+```
+
+### With Netlify Deploy Previews
+
+```yaml
+- name: Wait for Netlify Deploy
+  uses: jakepartusch/wait-for-netlify-action@v1
+  id: netlify
+  with:
+    site_name: 'your-site-name'
+    max_timeout: 300
+
+- name: Run Scout on Netlify Preview
+  uses: katalon-studio/scout-action@v1
+  with:
+    api_key: ${{ secrets.SCOUT_API_KEY }}
+    url: ${{ steps.netlify.outputs.url }}
+```
+
+### With Custom Preview Environments
+
+```yaml
+- name: Build and Deploy Preview
+  id: deploy
+  run: |
+    ./scripts/deploy-preview.sh ${{ github.event.pull_request.number }}
+    echo "url=$(cat preview-url.txt)" >> $GITHUB_OUTPUT
+
+- name: Run Scout
+  uses: katalon-studio/scout-action@v1
+  with:
+    api_key: ${{ secrets.SCOUT_API_KEY }}
+    url: ${{ steps.deploy.outputs.url }}
+```
+
+## Advanced Configuration
+
+### Multi-Persona Review
+
+Run Scout with different personas to catch diverse issues:
+
+```yaml
+jobs:
+  scout-review:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        persona: [general-user, security-tester, accessibility-auditor]
+      fail-fast: false
+
+    steps:
+      - name: Run Scout as ${{ matrix.persona }}
+        uses: katalon-studio/scout-action@v1
+        with:
+          api_key: ${{ secrets.SCOUT_API_KEY }}
+          url: ${{ steps.preview.outputs.url }}
+          persona: ${{ matrix.persona }}
+
+      - name: Upload ${{ matrix.persona }} Report
+        uses: actions/upload-artifact@v4
+        with:
+          name: scout-report-${{ matrix.persona }}
+          path: scout-report.json
+```
+
+### Conditional Execution
+
+Only run Scout for certain file changes:
+
+```yaml
+on:
+  pull_request:
+    paths:
+      - 'src/**'
+      - 'pages/**'
+      - 'components/**'
+    paths-ignore:
+      - 'docs/**'
+      - '**.md'
+```
+
+### Quality Gate Policies
+
+Define strict quality policies:
+
+```yaml
+- name: Evaluate Quality Gate
+  run: |
+    CRITICAL=$(jq '.critical_count' scout-report.json)
+    HIGH=$(jq '.high_count' scout-report.json)
+
+    if [ "$CRITICAL" -gt 0 ]; then
+      echo "❌ Failed: $CRITICAL critical issues found"
+      exit 1
+    fi
+
+    if [ "$HIGH" -gt 5 ]; then
+      echo "⚠️ Warning: $HIGH high-severity issues found"
+      exit 1
+    fi
+
+    echo "✅ Quality gate passed"
+```
+
+## Comment Format Examples
+
+### Clean PR (No Issues)
+
+```
+✅ Scout Quality Report
+
+Exploration Status: completed
+Persona: general-user
+Duration: 8 minutes
+
+### Issues Found
+- 🚨 Critical: 0
+- ⚠️ High: 0
+- 📝 Medium: 2
+- 💡 Low: 5
+
+Great work! No critical or high-severity issues detected.
+
+📊 View Full Report
+```
+
+### PR with Issues
+
+```
+🚨 Scout Quality Report
+
+Exploration Status: completed
+Persona: security-tester
+Duration: 10 minutes
+
+### Issues Found
+- 🚨 Critical: 2
+- ⚠️ High: 3
+- 📝 Medium: 8
+- 💡 Low: 12
+
+#### 🚨 SQL Injection vulnerability in search
+User input in the search parameter is not properly sanitized...
+
+[Reproduction Steps]
+1. Navigate to /search
+2. Enter payload: ' OR '1'='1
+3. Submit form
+
+...and 12 more issues
+
+📊 View Full Report
+```
+
+## Best Practices
+
+<AccordionGroup>
+  <Accordion title="Start with lenient policies">
+    Begin with Scout running as informational only (`fail_on_critical: false`). Once your baseline is clean, enable strict gates.
+  </Accordion>
+
+  <Accordion title="Use appropriate personas">
+    Match personas to your PR type: security-tester for auth changes, accessibility-auditor for UI work, etc.
+  </Accordion>
+
+  <Accordion title="Keep explorations focused">
+    Set 5-10 minute timeouts for PR reviews to balance thoroughness with CI speed.
+  </Accordion>
+
+  <Accordion title="Update comments, don't spam">
+    Reuse the same comment for updates rather than creating a new comment on each push.
+  </Accordion>
+
+  <Accordion title="Archive reports">
+    Always save Scout reports as artifacts for later review and trend analysis.
+  </Accordion>
+
+  <Accordion title="Handle authentication">
+    For authenticated apps, generate temporary tokens in CI and pass them to Scout via `auth_token`.
+  </Accordion>
+</AccordionGroup>
+
+## Metrics and Reporting
+
+Track Scout's impact over time:
+
+```yaml
+- name: Track Scout Metrics
+  run: |
+    jq '{
+      pr_number: "${{ github.event.pull_request.number }}",
+      commit_sha: "${{ github.sha }}",
+      timestamp: now,
+      critical: .critical_count,
+      high: .high_count,
+      medium: .medium_count,
+      duration: .duration
+    }' scout-report.json >> scout-metrics.jsonl
+
+- name: Upload Metrics
+  uses: actions/upload-artifact@v4
+  with:
+    name: scout-metrics
+    path: scout-metrics.jsonl
+```
+
+## Troubleshooting
+
+<AccordionGroup>
+  <Accordion title="Comment not posted to PR">
+    Ensure the workflow has `pull-requests: write` permission in the job configuration.
+  </Accordion>
+
+  <Accordion title="Preview URL not ready">
+    Add appropriate wait/polling logic after deployment but before running Scout.
+  </Accordion>
+
+  <Accordion title="Authentication required">
+    Generate a session token in your workflow and pass it to Scout using the `auth_token` parameter.
+  </Accordion>
+
+  <Accordion title="Too many false positives">
+    Adjust the persona or timeout, and consider implementing an issue allowlist for known non-issues.
+  </Accordion>
+</AccordionGroup>
+
+## Next Steps
+
+- [Set up GitHub Actions integration](/quick-run/github-actions)
+- [Learn about Scout personas](/essentials/navigation)
+- [View Scout reports](/essentials/markdown)
+
+Questions? [Contact support](mailto:huy.tieu@scoutqa.ai).
