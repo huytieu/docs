@@ -53,6 +53,12 @@
             ]
           },
           {
+            "group": "Updates",
+            "pages": [
+              "changelog"
+            ]
+          },
+          {
             "group": "Integrations",
             "pages": [
               "ai-tools/cursor",
@@ -93,6 +99,7 @@
     "light": "/logo/light.svg",
     "dark": "/logo/dark.svg"
   },
+  "favicon": "/favicon.svg",
   "navbar": {
     "links": [
       {
