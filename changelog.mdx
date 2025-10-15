@@ -4,6 +4,49 @@ description: "Latest updates and improvements to Scout"
 rss: true
 ---
 
+<Update label="October 15, 2025" description="v0.2.2" tags={["Feature", "Improvement", "Fix"]}>
+
+## Smarter Testing & Smoother Experience
+
+We've been busy making Scout more intelligent and delightful to use. This release brings enhanced AI capabilities, mobile support, and a bunch of quality-of-life improvements.
+
+### What's New
+
+**Mobile-Ready Execution Page**
+Monitor your testing sessions from anywhere! The execution page now adapts beautifully to mobile devices, so you can keep tabs on Scout's progress whether you're at your desk or on the go.
+
+**Shared Context Intelligence**
+Scout just got smarter. We've evolved our memory system to use shared context bundles, enabling Scout to generate more coherent and contextual test reports by understanding relationships across your entire testing session.
+
+**Dynamic Browser Management**
+Scout now intelligently manages browser resources, launching and cleaning up browser sessions on-demand for better performance and lower resource usage.
+
+### Improvements
+
+**Cleaner, More Readable Reports**
+We've refined the structured report design with improved font contrast and removed redundant execution metadata, making it easier to scan and understand your test results at a glance.
+
+**Enhanced Email Experience**
+Updated our magic link email template with engaging "vibe testing" branding and clearer security messaging—because even authentication emails should spark joy.
+
+**Full AI Transparency**
+Ever wondered what parameters Scout is using? The webapp now displays tool call parameters, giving you complete visibility into how our AI agent makes decisions during exploration.
+
+**Polished Theming**
+Refreshed our UI theming standards for a more consistent and cohesive visual experience throughout the application.
+
+### Under the Hood
+
+- Optimized report generation with a dedicated AI model for higher quality structured reports
+- Fixed structured report streaming for smoother real-time updates
+- Resolved flashing LiveView issues during sub-agent executions
+- Added TTL support for CDP connections and live view URLs to automatically clean up stale sessions
+- Updated to latest better-auth package with security improvements
+- Enhanced AI agent prompts for improved testing accuracy
+- Improved JSON Schema compatibility across the system
+
+</Update>
+
 <Update label="October 10, 2025" description="v0.2" tags={["Feature", "Improvement"]}>
 
 ## Interactive Live View & Enhanced Reporting
