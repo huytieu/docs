@@ -52,11 +52,18 @@
               "tooling/cli",
               "tooling/mcp"
             ]
-          },
+          }
+        ]
+      },
+      {
+        "tab": "Blog",
+        "icon": "newspaper",
+        "groups": [
           {
-            "group": "Stories",
+            "group": "",
             "pages": [
-              "stories/why-we-built-scout"
+              "blog/index",
+              "blog/why-we-built-scout"
             ]
           }
         ]
