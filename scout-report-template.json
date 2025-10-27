@@ -1,0 +1,359 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Scout QA Report Template",
+  "type": "object",
+  "properties": {
+    "report_metadata": {
+      "type": "object",
+      "properties": {
+        "report_id": { "type": "string" },
+        "execution_date": { "type": "string", "format": "date-time" },
+        "product_url": { "type": "string" },
+        "scout_version": { "type": "string" }
+      }
+    },
+    "overall_product_impression": {
+      "type": "object",
+      "properties": {
+        "product_description": {
+          "type": "string",
+          "description": "What Scout discovered about the product - its purpose, main features, and value proposition"
+        },
+        "product_stage": {
+          "type": "string",
+          "enum": ["prototype", "poc", "mvp", "beta", "production"],
+          "description": "Current stage of product development"
+        },
+        "product_type": {
+          "type": "string",
+          "description": "Category/type of product (e.g., SaaS, e-commerce, marketplace, etc.)"
+        },
+        "critical_feedback": {
+          "type": "string",
+          "description": "Based on product type and stage, what matters most for users at this phase"
+        },
+        "user_persona_feedback": {
+          "type": "array",
+          "description": "For prototypes/POCs: feedback from different user persona perspectives",
+          "items": {
+            "type": "object",
+            "properties": {
+              "persona": { "type": "string" },
+              "feedback": { "type": "string" },
+              "concept_validation": { "type": "string" }
+            }
+          }
+        }
+      }
+    },
+    "product_health_score": {
+      "type": "object",
+      "properties": {
+        "overall_score": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 100,
+          "description": "Overall product health percentage"
+        },
+        "health_status": {
+          "type": "string",
+          "enum": [
+            "ready_for_next_stage",
+            "caution_required",
+            "critical_issues"
+          ],
+          "description": "90-100%: Ready for next stage | 70-89%: Caution needed | <70%: Critical problems/release blockers"
+        },
+        "score_breakdown": {
+          "type": "object",
+          "properties": {
+            "functionality": { "type": "number" },
+            "usability": { "type": "number" },
+            "performance": { "type": "number" },
+            "accessibility": { "type": "number" },
+            "reliability": { "type": "number" }
+          }
+        },
+        "health_summary": {
+          "type": "string",
+          "description": "Brief explanation of the health score and key factors"
+        }
+      }
+    },
+    "execution_summary": {
+      "type": "object",
+      "properties": {
+        "flows_tested": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "flow_name": {
+                "type": "string",
+                "description": "Name of the feature/flow (e.g., Sign up, Login, Checkout)"
+              },
+              "flow_description": {
+                "type": "string",
+                "description": "What the feature/flow does"
+              },
+              "flow_quality": {
+                "type": "string",
+                "enum": ["excellent", "good", "fair", "poor", "broken"],
+                "description": "Current quality assessment of the flow"
+              },
+              "quality_score": {
+                "type": "number",
+                "minimum": 0,
+                "maximum": 100
+              },
+              "issues_found": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "issue_id": { "type": "string" },
+                    "severity": {
+                      "type": "string",
+                      "enum": ["critical", "high", "medium", "low"]
+                    },
+                    "category": {
+                      "type": "string",
+                      "enum": [
+                        "functional",
+                        "usability",
+                        "performance",
+                        "accessibility",
+                        "security",
+                        "visual",
+                        "content",
+                        "seo"
+                      ]
+                    },
+                    "description": { "type": "string" },
+                    "impact": { "type": "string" },
+                    "steps_to_reproduce": {
+                      "type": "array",
+                      "items": { "type": "string" }
+                    },
+                    "recommended_fix": {
+                      "type": "string",
+                      "description": "Technical recommendation for fixing the issue"
+                    },
+                    "fix_prompt": {
+                      "type": "string",
+                      "description": "AI prompt to use for automated fix suggestion"
+                    },
+                    "screenshot_path": { "type": "string" }
+                  }
+                }
+              },
+              "recommendations": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "recommendation": { "type": "string" },
+                    "priority": {
+                      "type": "string",
+                      "enum": ["high", "medium", "low"]
+                    },
+                    "implementation_prompt": { "type": "string" }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "test_categories": {
+      "type": "object",
+      "description": "Issues categorized similar to user testing + Lighthouse checks",
+      "properties": {
+        "functional_testing": {
+          "type": "object",
+          "properties": {
+            "core_functionality": {
+              "type": "array",
+              "items": { "$ref": "#/definitions/issue" }
+            },
+            "edge_cases": {
+              "type": "array",
+              "items": { "$ref": "#/definitions/issue" }
+            },
+            "error_handling": {
+              "type": "array",
+              "items": { "$ref": "#/definitions/issue" }
+            }
+          }
+        },
+        "usability_testing": {
+          "type": "object",
+          "properties": {
+            "user_flow_clarity": {
+              "type": "array",
+              "items": { "$ref": "#/definitions/issue" }
+            },
+            "navigation": {
+              "type": "array",
+              "items": { "$ref": "#/definitions/issue" }
+            },
+            "feedback_mechanisms": {
+              "type": "array",
+              "items": { "$ref": "#/definitions/issue" }
+            },
+            "form_usability": {
+              "type": "array",
+              "items": { "$ref": "#/definitions/issue" }
+            }
+          }
+        },
+        "performance_metrics": {
+          "type": "object",
+          "properties": {
+            "first_contentful_paint": { "type": "number" },
+            "largest_contentful_paint": { "type": "number" },
+            "time_to_interactive": { "type": "number" },
+            "cumulative_layout_shift": { "type": "number" },
+            "total_blocking_time": { "type": "number" },
+            "performance_issues": {
+              "type": "array",
+              "items": { "$ref": "#/definitions/issue" }
+            }
+          }
+        },
+        "accessibility_audit": {
+          "type": "object",
+          "properties": {
+            "wcag_compliance_level": {
+              "type": "string",
+              "enum": ["A", "AA", "AAA", "non-compliant"]
+            },
+            "keyboard_navigation": {
+              "type": "array",
+              "items": { "$ref": "#/definitions/issue" }
+            },
+            "screen_reader_compatibility": {
+              "type": "array",
+              "items": { "$ref": "#/definitions/issue" }
+            },
+            "color_contrast": {
+              "type": "array",
+              "items": { "$ref": "#/definitions/issue" }
+            },
+            "aria_labels": {
+              "type": "array",
+              "items": { "$ref": "#/definitions/issue" }
+            }
+          }
+        },
+        "seo_best_practices": {
+          "type": "object",
+          "properties": {
+            "meta_tags": {
+              "type": "array",
+              "items": { "$ref": "#/definitions/issue" }
+            },
+            "semantic_html": {
+              "type": "array",
+              "items": { "$ref": "#/definitions/issue" }
+            },
+            "crawlability": {
+              "type": "array",
+              "items": { "$ref": "#/definitions/issue" }
+            }
+          }
+        },
+        "security_checks": {
+          "type": "object",
+          "properties": {
+            "https_usage": { "type": "boolean" },
+            "mixed_content": {
+              "type": "array",
+              "items": { "$ref": "#/definitions/issue" }
+            },
+            "vulnerable_libraries": {
+              "type": "array",
+              "items": { "$ref": "#/definitions/issue" }
+            }
+          }
+        },
+        "visual_consistency": {
+          "type": "object",
+          "properties": {
+            "design_system_adherence": {
+              "type": "array",
+              "items": { "$ref": "#/definitions/issue" }
+            },
+            "responsive_design": {
+              "type": "array",
+              "items": { "$ref": "#/definitions/issue" }
+            },
+            "visual_bugs": {
+              "type": "array",
+              "items": { "$ref": "#/definitions/issue" }
+            }
+          }
+        }
+      }
+    },
+    "recommendations_summary": {
+      "type": "object",
+      "properties": {
+        "immediate_actions": {
+          "type": "array",
+          "description": "Critical fixes needed before release",
+          "items": {
+            "type": "object",
+            "properties": {
+              "action": { "type": "string" },
+              "reason": { "type": "string" },
+              "fix_prompt": { "type": "string" }
+            }
+          }
+        },
+        "short_term_improvements": {
+          "type": "array",
+          "description": "Improvements to be addressed soon",
+          "items": {
+            "type": "object",
+            "properties": {
+              "improvement": { "type": "string" },
+              "expected_impact": { "type": "string" },
+              "implementation_prompt": { "type": "string" }
+            }
+          }
+        },
+        "long_term_enhancements": {
+          "type": "array",
+          "description": "Strategic improvements for future iterations",
+          "items": {
+            "type": "object",
+            "properties": {
+              "enhancement": { "type": "string" },
+              "strategic_value": { "type": "string" }
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "issue": {
+      "type": "object",
+      "properties": {
+        "issue_id": { "type": "string" },
+        "title": { "type": "string" },
+        "description": { "type": "string" },
+        "severity": {
+          "type": "string",
+          "enum": ["critical", "high", "medium", "low"]
+        },
+        "impact": { "type": "string" },
+        "recommended_fix": { "type": "string" },
+        "fix_prompt": { "type": "string" },
+        "reference_url": { "type": "string" }
+      }
+    }
+  }
+}
