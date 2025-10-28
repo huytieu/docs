@@ -20,7 +20,8 @@
             "pages": [
               "index",
               "quickstart",
-              "development"
+              "development",
+              "changelog"
             ]
           },
           {
@@ -75,11 +76,6 @@
           "anchor": "Product",
           "href": "https://scoutqa.ai",
           "icon": "rocket"
-        },
-        {
-          "anchor": "Changelog",
-          "href": "https://docs.scoutqa.ai/changelog",
-          "icon": "newspaper"
         }
       ]
     }
