@@ -4,6 +4,59 @@ description: "Latest updates and improvements to Scout"
 rss: true
 ---
 
+<Update label="October 28, 2025" description="v0.2.3" tags={["Feature", "Improvement"]}>
+
+## Multi-Project Workspace & Agent Improvements
+
+A major release focused on organization and flexibility. Scout now supports multiple project workspaces, enhanced onboarding, and more powerful agent configuration options.
+
+### What's New
+
+**Multi-Project Workspace**
+Organize your testing with dedicated project workspaces that keep everything connected. Create projects, switch between them seamlessly, and let Scout automatically populate project details from your URLs. Each project gets its own dashboard with test insights and quick access to create new executions.
+
+**Enhanced Test Execution Management**
+Search executions by URL, filter by status (completed, running, queued, failed, canceled), and rerun any execution with a single click. Share public execution results via `/t/{executionId}` links and enjoy a revamped execution details page with improved layout and information display.
+
+**Guided Onboarding Experience**
+New users now get a smooth two-step onboarding flow that walks them through creating their first project. Simply enter a URL, and Scout fetches metadata to auto-populate project names and logos. Enhanced sign-in with magic link email authentication and Google OAuth support.
+
+**Flexible Agent Configuration**
+Configure vision tools to use either Anthropic Computer Use or Nova Act backends. Watch your agent in action with tool call visualization showing icons and descriptions for every action—clicks, typing, navigation, and more.
+
+### Improvements
+
+**Project Management**
+- Project switcher in navigation for quick context switching
+- Project dashboard with test insights and execution history
+- Project settings page for editing and deletion
+- Automatic website metadata fetching for project setup
+- Website metadata scraper endpoint (`/api/v1/meta`) for fetching titles, descriptions, and favicons
+
+**Authentication & Access**
+- Magic link email authentication
+- Google OAuth integration
+- API key authentication support for programmatic access
+
+**Agent & Automation**
+- Real-time streaming API for agent responses
+- Chrome DevTools MCP integration updated to v0.9.0
+- Refactored agent streaming architecture with `startAgentStream`
+
+**UI Polish**
+- Improved color contrast and theming throughout the interface
+- Fixed button alignments and layout issues
+- Better URL normalization and validation
+- Optimized frontend build process
+
+### Under the Hood
+
+- Introduced `@katalon-studio/scout-common` shared package for type definitions and schemas
+- Benchmark result caching during synchronization
+- Enhanced agent streaming architecture for better performance
+
+</Update>
+
 <Update label="October 15, 2025" description="v0.2.2" tags={["Feature", "Improvement", "Fix"]}>
 
 ## Smarter Testing & Smoother Experience
